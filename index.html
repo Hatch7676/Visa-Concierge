@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Concierge">
+<title>Visa Infinite Concierge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1F3C;
+    --navy-mid: #162d52;
+    --gold: #C9A84C;
+    --gold-pale: #f5edd8;
+    --cream: #FAFAF7;
+    --white: #ffffff;
+    --slate: #3D4554;
+    --muted: #8A94A6;
+    --divider: #E8EAF0;
+    --radius: 14px;
+    --radius-sm: 9px;
+
+    --c1-bg: #EEF4FF; --c1-tx: #1E4DB7; --c1-dot: #2D5BE3;
+    --c2-bg: #F0ECFF; --c2-tx: #4530A8; --c2-dot: #5B3FC8;
+    --c3-bg: #EDFAF4; --c3-tx: #156040; --c3-dot: #1A7A50;
+    --c4-bg: #FFF0F6; --c4-tx: #963068; --c4-dot: #B03070;
+    --c5-bg: #FFF1EE; --c5-tx: #A83820; --c5-dot: #C0422A;
+    --c6-bg: #EBF8FF; --c6-tx: #0F5A96; --c6-dot: #1468A8;
+    --c7-bg: #FFFBEA; --c7-tx: #7A4F00; --c7-dot: #8A5A00;
+    --c8-bg: #EDFDF8; --c8-tx: #0A5C50; --c8-dot: #0D7060;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--slate);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy);
+    padding: 52px 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+  .header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .header-title {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    font-size: 13px;
+    font-weight: 300;
+    color: #9AAEC8;
+    line-height: 1.5;
+  }
+
+  /* ── Contact ── */
+  .contact-card {
+    margin: 16px 16px 0;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--divider);
+    overflow: hidden;
+  }
+  .contact-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 16px 8px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .contact-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--divider);
+    gap: 12px;
+  }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-type {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 72px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+  .contact-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .contact-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 22px 16px 10px;
+  }
+
+  /* ── Scenarios ── */
+  .scenarios { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .card {
+    border-radius: var(--radius);
+    padding: 16px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .card:active { transform: scale(0.985); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-bottom: 9px;
+  }
+  .card-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    flex: 1;
+  }
+  .card-why {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--slate);
+    margin-bottom: 10px;
+    padding-left: 35px;
+  }
+  .card-example {
+    font-size: 12.5px;
+    font-style: italic;
+    line-height: 1.6;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.55);
+    padding-left: 35px;
+    padding-left: 12px;
+  }
+  .card-example::before {
+    content: '"';
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    opacity: 0.4;
+    margin-right: 2px;
+    vertical-align: -2px;
+  }
+
+  /* Color themes */
+  .c1 { background: var(--c1-bg); }
+  .c1 .card-title { color: var(--c1-tx); }
+  .c1 .card-num { background: var(--c1-dot); color: white; }
+  .c1 .card-example { color: var(--c1-tx); }
+
+  .c2 { background: var(--c2-bg); }
+  .c2 .card-title { color: var(--c2-tx); }
+  .c2 .card-num { background: var(--c2-dot); color: white; }
+  .c2 .card-example { color: var(--c2-tx); }
+
+  .c3 { background: var(--c3-bg); }
+  .c3 .card-title { color: var(--c3-tx); }
+  .c3 .card-num { background: var(--c3-dot); color: white; }
+  .c3 .card-example { color: var(--c3-tx); }
+
+  .c4 { background: var(--c4-bg); }
+  .c4 .card-title { color: var(--c4-tx); }
+  .c4 .card-num { background: var(--c4-dot); color: white; }
+  .c4 .card-example { color: var(--c4-tx); }
+
+  .c5 { background: var(--c5-bg); }
+  .c5 .card-title { color: var(--c5-tx); }
+  .c5 .card-num { background: var(--c5-dot); color: white; }
+  .c5 .card-example { color: var(--c5-tx); }
+
+  .c6 { background: var(--c6-bg); }
+  .c6 .card-title { color: var(--c6-tx); }
+  .c6 .card-num { background: var(--c6-dot); color: white; }
+  .c6 .card-example { color: var(--c6-tx); }
+
+  .c7 { background: var(--c7-bg); }
+  .c7 .card-title { color: var(--c7-tx); }
+  .c7 .card-num { background: var(--c7-dot); color: white; }
+  .c7 .card-example { color: var(--c7-tx); }
+
+  .c8 { background: var(--c8-bg); }
+  .c8 .card-title { color: var(--c8-tx); }
+  .c8 .card-num { background: var(--c8-dot); color: white; }
+  .c8 .card-example { color: var(--c8-tx); }
+
+  /* ── Pro tips ── */
+  .tips { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
+  .tip {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 13px 15px;
+    border: 1px solid var(--divider);
+  }
+  .tip-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .tip-body {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 28px 20px 10px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Chase Visa Infinite · Quick Reference</div>
+  <div class="header-title">Concierge<br>Service Guide</div>
+  <div class="header-sub">Available 24/7 · No extra cost · Personal well-connected assistant</div>
+</div>
+
+<div class="contact-card">
+  <div class="contact-label">Contact</div>
+  <div class="contact-row">
+    <div class="contact-type">US Phone</div>
+    <div>
+      <div class="contact-val">(800) 587-2700</div>
+      <div class="contact-note">Primary number from within the US</div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <div class="contact-type">Intl Phone</div>
+    <div>
+      <div class="contact-val">+1 (303) 214-5802</div>
+      <div class="contact-note">Use when calling from outside the US</div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <div class="contact-type">Email</div>
+    <div>
+      <div class="contact-val" style="font-size:13px;">concierge@myvisaconcierge.com</div>
+      <div class="contact-note">Best for non-urgent requests, 24–48 hrs out</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-header">Real-World Scenarios</div>
+
+<div class="scenarios">
+
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title">Last-Minute or Relaxed Dinner Reservations</div>
+    </div>
+    <div class="card-why">They check availability, suggest 2–3 options, and book it — great when you don't want to research while relaxing on vacation.</div>
+    <div class="card-example">I'm in Newport Beach on the beach and want dinner tonight around 7pm. Prefer rooftop or harbor views, quality casual food (not fancy), fresh seafood or American classics, around $25–$40/person including a drink.</div>
+  </div>
+
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title">Full Trip Planning or Itinerary Help</div>
+    </div>
+    <div class="card-why">They coordinate hotels, transport, tours, and activities. Many people hand off entire vacations so they can just show up.</div>
+    <div class="card-example">I'm flying into Chicago next weekend for 3 days. Help plan a relaxed itinerary: hotel under $300/night downtown, 2–3 great Italian dinner spots, and tickets to a baseball game or museum if available.</div>
+  </div>
+
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-title">Hard-to-Get Event Tickets or Experiences</div>
+    </div>
+    <div class="card-why">They have access to presale and harder-to-find tickets for sports, theater, concerts, and unique behind-the-scenes experiences.</div>
+    <div class="card-example">Looking for concert tickets in Austin next month ($150–$300 range) or a Broadway show in New York in June. Also any behind-the-scenes tour options.</div>
+  </div>
+
+  <div class="card c4">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-title">Gift Ideas, Purchasing & Delivery</div>
+    </div>
+    <div class="card-why">They handle research, purchase, and delivery — no scrambling while you're on the road.</div>
+    <div class="card-example">My wife's birthday is in two days while I'm traveling. Send a nice flower arrangement and gift basket to our home in Salt Lake City — thoughtful, under $150 total, maybe chocolates or wine.</div>
+  </div>
+
+  <div class="card c5">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-title">Emergency or Unexpected Situations</div>
+    </div>
+    <div class="card-why">Real users have used it for canceled flights, lost luggage, urgent hotels, and crisis car rentals during weather events.</div>
+    <div class="card-example">My flight was canceled in Miami due to weather. Can you help find a hotel near the airport for tonight and rebook a flight for tomorrow morning?</div>
+  </div>
+
+  <div class="card c6">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-title">Casual / Non-Fancy Quality Requests</div>
+    </div>
+    <div class="card-why">They match your vibe — quality food and relaxed atmosphere, not white-tablecloth. Just tell them what you're in the mood for.</div>
+    <div class="card-example">I'm not into fancy places. Find a highly rated casual spot in Denver for great burgers or tacos with outdoor seating, good value, around $20–$35/person for dinner tomorrow.</div>
+  </div>
+
+  <div class="card c7">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-title">Business or Practical Needs</div>
+    </div>
+    <div class="card-why">They handle conference rooms, interpreters, equipment rentals, and etiquette briefings — practical logistics, not just leisure.</div>
+    <div class="card-example">I have a meeting in Boston next week. Book a private meeting room at a hotel near the airport for 4 people, and recommend a good casual lunch spot nearby.</div>
+  </div>
+
+  <div class="card c8">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-title">Recreation & Local Experiences</div>
+    </div>
+    <div class="card-why">Golf reservations, spa bookings, hiking suggestions, fitness facilities, and local activity planning.</div>
+    <div class="card-example">While in Scottsdale, book a tee time at a nice (not ultra-expensive) golf course Friday morning, and suggest a good hiking spot or spa session afterward.</div>
+  </div>
+
+</div>
+
+<div class="section-header">Pro Tips</div>
+
+<div class="tips">
+  <div class="tip">
+    <div class="tip-label">Be specific about your vibe.</div>
+    <div class="tip-body">"Quality casual, not fancy" gets far better results than a generic request. They'll match your style exactly.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">Always include your budget.</div>
+    <div class="tip-body">State your range upfront — e.g. "$25–$40/person including a drink." They won't book without your approval.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">Call for urgent requests.</div>
+    <div class="tip-body">Email works for 24–48 hrs out. For same-day or emergencies, call — you get real-time feedback on options.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">First call — set up a profile.</div>
+    <div class="tip-body">They may do a quick profile on your first call. Takes a few minutes and makes every future request faster.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">They'll follow up with options.</div>
+    <div class="tip-body">For complex requests they call or email back with 2–3 curated choices rather than making decisions for you.</div>
+  </div>
+</div>
+
+<div class="footer">
+  Chase Visa Infinite Concierge · Quick Reference<br>
+  Save to home screen: Safari → Share → Add to Home Screen
+</div>
+
+</body>
+</html>
