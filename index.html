@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Visa Concierge">
+<title>Visa Concierge</title>
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── Light mode ── */
+  :root,
+  html[data-theme="light"] {
+    --navy: #0D1F3C;
+    --gold: #C9A84C;
+    --page-bg: #F7F8FA;
+    --surface: #ffffff;
+    --text-body: #2E3340;
+    --text-card: #1A1F2E;
+    --muted: #8A94A6;
+    --divider: #E8EAF0;
+    --radius: 14px;
+    --radius-sm: 9px;
+    --contact-val-color: #0D1F3C;
+    --tip-bg: #ffffff;
+    --tip-label: #0D1F3C;
+    --tip-body: #5A6478;
+    --section-divider: #E8EAF0;
+
+    --c1-bg: #EEF4FF; --c1-tx: #1A3A9C; --c1-dot: #2D5BE3;
+    --c2-bg: #F0ECFF; --c2-tx: #3A278A; --c2-dot: #5B3FC8;
+    --c3-bg: #EDFAF4; --c3-tx: #104D33; --c3-dot: #1A7A50;
+    --c4-bg: #FFF0F6; --c4-tx: #7A2456; --c4-dot: #B03070;
+    --c5-bg: #FFF1EE; --c5-tx: #8C2D18; --c5-dot: #C0422A;
+    --c6-bg: #EBF8FF; --c6-tx: #0A4878; --c6-dot: #1468A8;
+    --c7-bg: #FFFBEA; --c7-tx: #623D00; --c7-dot: #8A5A00;
+    --c8-bg: #EDFDF8; --c8-tx: #084840; --c8-dot: #0D7060;
+    --example-bg: rgba(255,255,255,0.6);
+  }
+
+  /* ── Dark mode — system or manual toggle ── */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --navy: #0D1F3C;
+      --gold: #E0B85A;
+      --page-bg: #16181E;
+      --surface: #21242D;
+      --text-body: #E4E7EF;
+      --text-card: #D8DCE8;
+      --muted: #7A859A;
+      --divider: #2E3242;
+      --contact-val-color: #E0B85A;
+      --tip-bg: #21242D;
+      --tip-label: #E4E7EF;
+      --tip-body: #9AA4B8;
+      --section-divider: #2E3242;
+
+      --c1-bg: #1A2240; --c1-tx: #9BB8F5; --c1-dot: #4A78F0;
+      --c2-bg: #1E1838; --c2-tx: #B8A8F8; --c2-dot: #7B64E0;
+      --c3-bg: #142818; --c3-tx: #7ED4A0; --c3-dot: #2A9A60;
+      --c4-bg: #2A1222; --c4-tx: #E898C0; --c4-dot: #C84888;
+      --c5-bg: #2A1410; --c5-tx: #E89878; --c5-dot: #D05838;
+      --c6-bg: #122030; --c6-tx: #78C0E8; --c6-dot: #2888C8;
+      --c7-bg: #281E00; --c7-tx: #DCA85A; --c7-dot: #AA7A10;
+      --c8-bg: #0E2420; --c8-tx: #58D4B8; --c8-dot: #1A9080;
+      --example-bg: rgba(255,255,255,0.07);
+    }
+  }
+
+  /* Manual dark toggle */
+  html[data-theme="dark"] {
+    --navy: #0D1F3C;
+    --gold: #E0B85A;
+    --page-bg: #16181E;
+    --surface: #21242D;
+    --text-body: #E4E7EF;
+    --text-card: #D8DCE8;
+    --muted: #7A859A;
+    --divider: #2E3242;
+    --contact-val-color: #E0B85A;
+    --tip-bg: #21242D;
+    --tip-label: #E4E7EF;
+    --tip-body: #9AA4B8;
+    --section-divider: #2E3242;
+
+    --c1-bg: #1A2240; --c1-tx: #9BB8F5; --c1-dot: #4A78F0;
+    --c2-bg: #1E1838; --c2-tx: #B8A8F8; --c2-dot: #7B64E0;
+    --c3-bg: #142818; --c3-tx: #7ED4A0; --c3-dot: #2A9A60;
+    --c4-bg: #2A1222; --c4-tx: #E898C0; --c4-dot: #C84888;
+    --c5-bg: #2A1410; --c5-tx: #E89878; --c5-dot: #D05838;
+    --c6-bg: #122030; --c6-tx: #78C0E8; --c6-dot: #2888C8;
+    --c7-bg: #281E00; --c7-tx: #DCA85A; --c7-dot: #AA7A10;
+    --c8-bg: #0E2420; --c8-tx: #58D4B8; --c8-dot: #1A9080;
+    --example-bg: rgba(255,255,255,0.07);
+  }
+
+  html[data-theme="dark"] .card-title { text-decoration-color: rgba(255,255,255,0.2); }
+  html[data-theme="dark"] .protection-warning { background: #211A00; }
+  html[data-theme="dark"] .warning-text { color: #DCA85A; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .card-title { text-decoration-color: rgba(255,255,255,0.2); }
+    :root:not([data-theme="light"]) .protection-warning { background: #211A00; }
+    :root:not([data-theme="light"]) .warning-text { color: #DCA85A; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page-bg);
+    color: var(--text-body);
+    min-height: 100vh;
+    padding-bottom: 48px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy);
+    padding: 52px 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .theme-toggle {
+    position: absolute;
+    top: 52px;
+    right: 18px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s ease;
+  }
+  .theme-toggle:active { background: rgba(255,255,255,0.18); }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+  .header-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .header-title {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 13px;
+    font-weight: 300;
+    color: #9AAEC8;
+    line-height: 1.5;
+  }
+
+  /* ── Contact ── */
+  .contact-card {
+    margin: 16px 16px 0;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--divider);
+    overflow: hidden;
+  }
+  .contact-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 16px 8px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .contact-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--divider);
+    gap: 12px;
+  }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-type {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 72px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .contact-val {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--contact-val-color);
+    line-height: 1.3;
+  }
+  .contact-val a { color: var(--contact-val-color); text-decoration: none; }
+  .contact-val a:active { opacity: 0.7; }
+  .contact-note {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* ── Section headers ── */
+  .section-header {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 22px 16px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--section-divider);
+  }
+
+  /* ── Scenario cards ── */
+  .scenarios { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .card {
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .card:active { transform: scale(0.985); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-bottom: 9px;
+  }
+  .card-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    flex: 1;
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,0.15);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .card-title { text-decoration-color: rgba(255,255,255,0.15); }
+  }
+  .card-why {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-card);
+    margin-bottom: 10px;
+    padding-left: 37px;
+  }
+  .card-example {
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.65;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--example-bg);
+    color: var(--text-card);
+  }
+  .card-example::before {
+    content: '\201C';
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    opacity: 0.35;
+    margin-right: 1px;
+    vertical-align: -3px;
+  }
+
+  /* Color themes */
+  .c1 { background: var(--c1-bg); } .c1 .card-title { color: var(--c1-tx); } .c1 .card-num { background: var(--c1-dot); color: white; }
+  .c2 { background: var(--c2-bg); } .c2 .card-title { color: var(--c2-tx); } .c2 .card-num { background: var(--c2-dot); color: white; }
+  .c3 { background: var(--c3-bg); } .c3 .card-title { color: var(--c3-tx); } .c3 .card-num { background: var(--c3-dot); color: white; }
+  .c4 { background: var(--c4-bg); } .c4 .card-title { color: var(--c4-tx); } .c4 .card-num { background: var(--c4-dot); color: white; }
+  .c5 { background: var(--c5-bg); } .c5 .card-title { color: var(--c5-tx); } .c5 .card-num { background: var(--c5-dot); color: white; }
+  .c6 { background: var(--c6-bg); } .c6 .card-title { color: var(--c6-tx); } .c6 .card-num { background: var(--c6-dot); color: white; }
+  .c7 { background: var(--c7-bg); } .c7 .card-title { color: var(--c7-tx); } .c7 .card-num { background: var(--c7-dot); color: white; }
+  .c8 { background: var(--c8-bg); } .c8 .card-title { color: var(--c8-tx); } .c8 .card-num { background: var(--c8-dot); color: white; }
+
+  /* ── CSR Protection card ── */
+  .protection-card {
+    margin: 0 16px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--divider);
+    overflow: hidden;
+  }
+  .protection-header {
+    background: var(--navy);
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .protection-badge {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: #0D1F3C;
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .protection-header-title {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  .protection-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .protection-row:last-child { border-bottom: none; }
+  .protection-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .protection-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-body);
+    line-height: 1.4;
+  }
+  .protection-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .protection-steps {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .protection-steps-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .step {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 9px;
+    align-items: flex-start;
+  }
+  .step:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 13.5px;
+    color: var(--text-body);
+    line-height: 1.5;
+  }
+  .step-text strong { font-weight: 500; color: var(--text-card); }
+  .protection-warning {
+    padding: 11px 16px;
+    background: #FFF8E6;
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+  }
+  @media (prefers-color-scheme: dark) {
+    .protection-warning { background: #1E1800; }
+  }
+  .warning-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .warning-text {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #7A4F00;
+  }
+  @media (prefers-color-scheme: dark) {
+    .warning-text { color: #C8944A; }
+  }
+  .portal-link {
+    display: block;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--c6-dot);
+    text-decoration: none;
+    border-top: 1px solid var(--divider);
+    font-weight: 500;
+  }
+  .portal-link::after { content: ' →'; }
+
+  /* ── Pro tips ── */
+  .tips { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
+  .tip {
+    background: var(--tip-bg);
+    border-radius: var(--radius-sm);
+    padding: 13px 15px;
+    border: 1px solid var(--divider);
+  }
+  .tip-label { font-size: 13.5px; font-weight: 500; color: var(--tip-label); margin-bottom: 4px; }
+  .tip-body { font-size: 13px; line-height: 1.6; color: var(--tip-body); }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 28px 20px 10px;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle dark mode">🌙 Dark</button>
+  <div class="header-eyebrow">Chase Visa Infinite · Quick Reference</div>
+  <div class="header-title">Concierge<br>Service Guide</div>
+  <div class="header-sub">Available 24/7 · No extra cost · Personal well-connected assistant</div>
+</div>
+
+<div class="contact-card">
+  <div class="contact-section-label">Contact</div>
+  <div class="contact-row">
+    <div class="contact-type">US Phone</div>
+    <div>
+      <div class="contact-val"><a href="tel:+18005872700">(800) 587-2700</a></div>
+      <div class="contact-note">Primary number from within the US</div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <div class="contact-type">Intl Phone</div>
+    <div>
+      <div class="contact-val"><a href="tel:+13032145802">+1 (303) 214-5802</a></div>
+      <div class="contact-note">Use when calling from outside the US</div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <div class="contact-type">Email</div>
+    <div>
+      <div class="contact-val" style="font-size:13.5px;">
+        <span id="email-addr" onclick="copyEmail()" style="cursor:pointer; border-bottom: 1px dashed currentColor;">concierge@myvisaconcierge.com</span>
+        <span id="copy-confirm" style="display:none; font-size:11px; font-weight:400; color:#1A7A50; margin-left:8px;">✓ Copied</span>
+      </div>
+      <div class="contact-note">Tap to copy email · Best for 24–48 hr requests</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-header">Real-World Scenarios</div>
+
+<div class="scenarios">
+
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-title">Dinner Reservations — Any Vibe</div>
+    </div>
+    <div class="card-why">Casual, upscale, rooftop, harbor views — tell them exactly what you're in the mood for and they'll find it, check availability, and book it. Great when you just don't want to research.</div>
+    <div class="card-example">I'm in Newport Beach tonight, want dinner around 7pm. Quality casual — not fancy — rooftop or harbor views if possible, fresh seafood or American classics, around $25–$40/person including a drink.</div>
+  </div>
+
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-title">Full Trip Planning or Itinerary Help</div>
+    </div>
+    <div class="card-why">They coordinate hotels, flights, ground transport, tours, and dining — sequenced and booked. Many people hand off entire vacations so they can just show up. Also great for pre-booking restaurants before you land so it's done on arrival.</div>
+    <div class="card-example">Flying into Chicago next weekend for 3 days. Help plan a relaxed itinerary: hotel under $300/night downtown, 2–3 great dinner spots with good atmosphere, and tickets to a baseball game or museum. Also book us dinner Friday and Saturday night — casual, good food, nothing too fancy.</div>
+  </div>
+
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-title">Ground Transport Coordination</div>
+    </div>
+    <div class="card-why">Airport transfers, full-day drivers, multi-stop days — they source vetted options and book it. Far better than piecing together rideshares when you're moving around a lot or have a long day planned.</div>
+    <div class="card-example">I need a reliable private driver in Nashville for a full day — roughly 6 hours, 4 stops across the city. Looking for a clean, professional option under $300 for the day. What are my options?</div>
+  </div>
+
+  <div class="card c4">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-title">Recreation & Local Excursions</div>
+    </div>
+    <div class="card-why">Once you're at a destination and want to fill a day — fishing charters, snorkel tours, private guides, cooking classes, hiking, water sports. They find reputable outfitters and book it for you.</div>
+    <div class="card-example">I'm in Cancun for 3 days and want to fill tomorrow morning. Looking for a private snorkel or cenote tour for 2, well-reviewed, under $150 each. What's available?</div>
+  </div>
+
+  <div class="card c5">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-title">Hard-to-Get Event Tickets or Experiences</div>
+    </div>
+    <div class="card-why">They have access to presale and harder-to-find tickets for concerts, sports, theater, and unique behind-the-scenes experiences that aren't available through normal channels.</div>
+    <div class="card-example">Looking for concert tickets in Austin next month in the $150–$300 range, or a Broadway show in New York in June. Also interested in any behind-the-scenes or VIP experience options if available.</div>
+  </div>
+
+  <div class="card c6">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-title">Gift Ideas, Purchasing & Delivery</div>
+    </div>
+    <div class="card-why">They handle research, purchase, and delivery — no scrambling while you're traveling. They can ship directly to a hotel, home, or recipient address.</div>
+    <div class="card-example">My wife's birthday is in two days while I'm on a trip. Can you send a nice flower arrangement and gift basket to our home in Salt Lake City — thoughtful, under $150 total, maybe chocolates or a spa item?</div>
+  </div>
+
+  <div class="card c7">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-title">Emergency or Unexpected Situations</div>
+    </div>
+    <div class="card-why">Canceled flights, weather delays, lost luggage, last-minute hotels — they do the legwork while you're dealing with the chaos. Pay with your CSR and save receipts for reimbursement if the airline offers nothing.</div>
+    <div class="card-example">My flight was canceled in Miami due to weather and the airline isn't offering anything. Can you find me a well-reviewed hotel near the airport tonight — nicest option under $350 — and help rebook a morning flight out?</div>
+  </div>
+
+  <div class="card c8">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-title">Authentic Local Food Experiences</div>
+    </div>
+    <div class="card-why">Not tourist traps — actual neighborhood spots locals go to. Better than any search engine because they curate for your vibe, time window, and budget rather than returning 200 generic results.</div>
+    <div class="card-example">I have a free afternoon in New Orleans and want to eat where locals actually go — not Bourbon Street. Casual, great food, authentic to the city. Budget around $20–$35/person. What do you recommend and can you get me in?</div>
+  </div>
+
+</div>
+
+<div class="section-header">CSR Trip Protection</div>
+
+<div class="protection-card">
+  <div class="protection-header">
+    <div class="protection-badge">CSR Benefit</div>
+    <div class="protection-header-title">Trip Delay Reimbursement</div>
+  </div>
+
+  <div class="protection-row">
+    <div class="protection-label">Qualifies when</div>
+    <div class="protection-val">Flight delayed 6+ hours or requires overnight</div>
+    <div class="protection-note">Weather, mechanical, or common carrier delay. Original ticket must be paid with your CSR.</div>
+  </div>
+
+  <div class="protection-row">
+    <div class="protection-label">What's covered</div>
+    <div class="protection-val">Meals, lodging, and incidentals</div>
+    <div class="protection-note">Up to $500 per trip · $10,000 per year maximum</div>
+  </div>
+
+  <div class="protection-row">
+    <div class="protection-label">Airline voucher rule</div>
+    <div class="protection-val">If airline offers nothing — you're covered</div>
+    <div class="protection-note">A digital offer you never accepted or redeemed is not the same as a voucher used. If the airline covers it, you can't double-claim. If they offer partial coverage, you may claim the gap.</div>
+  </div>
+
+  <div class="protection-steps">
+    <div class="protection-steps-label">What to do in the moment</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Call the Concierge first</strong> — get the hotel booked and flight rebooked while availability exists.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Pay everything with your CSR</strong> — hotel, meals, incidentals. Required for coverage.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Save every receipt</strong> — hotel folio, meals, anything you spend during the delay.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>Get a delay notice from the airline</strong> — email, app notification, or screenshot. Required for the claim.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text"><strong>File after you're home</strong> — through the Chase benefits portal below.</div>
+    </div>
+  </div>
+
+  <div class="protection-warning">
+    <div class="warning-icon">⚠️</div>
+    <div class="warning-text">Do not accept a hotel voucher from the airline if you plan to claim through CSR — use the concierge to book your own and keep receipts instead.</div>
+  </div>
+
+  <a class="portal-link" href="https://www.eclaimsline.com" target="_blank">File a claim at eclaimsline.com</a>
+</div>
+
+<div class="section-header">Pro Tips</div>
+
+<div class="tips">
+  <div class="tip">
+    <div class="tip-label">Be specific about your vibe.</div>
+    <div class="tip-body">"Quality casual, not fancy" gets far better results than a generic request. They'll match your style exactly.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">Always include your budget.</div>
+    <div class="tip-body">State your range upfront — e.g. "$25–$40/person including a drink." They won't book without your approval.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">Call for urgent requests.</div>
+    <div class="tip-body">Email works for 24–48 hrs out. For same-day or emergencies, call — you get real-time feedback on options.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">First call — set up a profile.</div>
+    <div class="tip-body">They may do a quick profile on your first call. Takes a few minutes and makes every future request faster.</div>
+  </div>
+  <div class="tip">
+    <div class="tip-label">They'll follow up with options.</div>
+    <div class="tip-body">For complex requests they call or email back with 2–3 curated choices rather than making decisions for you.</div>
+  </div>
+</div>
+
+<div class="footer">
+  Chase Visa Infinite Concierge · Quick Reference<br>
+  Open once on WiFi — works offline after that
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .catch(err => console.log('SW registration failed:', err));
+    });
+  }
+
+  // Init theme from saved preference or system
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = saved === 'dark' || (!saved && prefersDark);
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+    updateBtn(isDark);
+  })();
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const isDark = current !== 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateBtn(isDark);
+  }
+
+  function updateBtn(isDark) {
+    const btn = document.getElementById('theme-btn');
+    if (btn) btn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
+  }
+
+  function copyEmail() {
+    const email = 'concierge@myvisaconcierge.com';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(showConfirm).catch(() => fallbackCopy(email));
+    } else {
+      fallbackCopy(email);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.style.position = 'fixed';
+    el.style.opacity = '0';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    try { document.execCommand('copy'); showConfirm(); } catch(e) {}
+    document.body.removeChild(el);
+  }
+
+  function showConfirm() {
+    const confirm = document.getElementById('copy-confirm');
+    confirm.style.display = 'inline';
+    setTimeout(() => { confirm.style.display = 'none'; }, 2500);
+  }
+</script>
+
+</body>
+</html>
